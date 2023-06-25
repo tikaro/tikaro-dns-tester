@@ -45,6 +45,12 @@ describe('tikaro.net', () => {
     });
   });
 
+  test('_domainconnect.tikaro.net is CNAMEd to connect.domains.google.com', () => {
+    return checkCname('_domainconnect.tikaro.net').then(cname => {
+      expect(cname[0]).toBe('connect.domains.google.com');
+    });
+  });
+
   // MX records
   test('tikaro.net MX contains correct MX records', () => {
     return checkMx('tikaro.net').then(mx => {
