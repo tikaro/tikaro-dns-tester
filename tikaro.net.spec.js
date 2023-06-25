@@ -1,6 +1,14 @@
-import { checkCname, checkMx, checkNs, checkTxt } from './check-dns';
+import { checkARecord, checkCname, checkMx, checkNs, checkTxt } from './check-dns';
 
 describe('tikaro.net', () => {
+
+  // A records
+    test('tikaro.net A record resolves to 192.0.78.24 and .25', () => {
+      return checkARecord('tikaro.net').then(arecords => {
+        expect(arecords).toContain('192.0.78.24');
+        expect(arecords).toContain('192.0.78.25');
+      });
+    });
 
   // NS records
   test('tikaro.net has expected NS records', () => {
@@ -19,9 +27,9 @@ describe('tikaro.net', () => {
     });
   });
 
-  test('www.tikaro.net is CNAMEd to tikaro.github.io', () => {
+  test('www.tikaro.net is CNAMEd to tikaro.net', () => {
     return checkCname('www.tikaro.net').then(cname => {
-      expect(cname[0]).toBe('tikaro.github.io');
+      expect(cname[0]).toBe('tikaro.net');
     });
   });
 
